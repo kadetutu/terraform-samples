@@ -1,8 +1,3 @@
-variable "environ" {
-  type        = string
-  description = "infrastructure environment"
-}
-
 variable "vpc_cidr" {
   type        = string
   description = "The IP range to use for the VPC"
@@ -27,7 +22,8 @@ variable "azs" {
  default     = ["us-east-1a", "us-east-1b"]
 }
 
-variable "vpc_subnet_count" {
-  type = number
-  default = 1
+variable "environment" {
+  type        = string
+  description = "Specific environment to deploy to"
+  default = "Dev"
 }
