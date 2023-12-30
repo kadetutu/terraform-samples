@@ -1,12 +1,12 @@
 resource "aws_directory_service_directory" "test_ad" {
-  name     = "Dev-AD"
-  password = jsondecode(data.aws_secretsmanager_secret_version.ad_password.secret_string)["AD_PASSWORD"]
+  name     = "DevAD.teslab.net"
+  password = data.aws_ssm_parameter.secret.value
   edition  = "Standard"
   type     = "MicrosoftAD"
-
+  #for_each      = toset(data.aws_subnets.my_subnets.ids)
   vpc_settings {
-    vpc_id     = data.aws_vpcs.main_vpc.id
-    subnet_ids = [for s in data.aws_subnets.my_subnets : s.cidr_block]
+    vpc_id     = data.aws_vpc.main_vpc.id
+    subnet_ids = ["subnet-03f38dd28e1f759a2", "subnet-0a253ade487ab66cf"]
   }
 
   tags = {
